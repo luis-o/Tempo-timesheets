@@ -55,7 +55,25 @@ source .env
 
 # Log time for a custom date range
 ./log-time.sh 2026-06-01 2026-06-15
+
+# Log time for a single date
+./log-time.sh 2026-06-16
 ```
+
+### Logging different tasks to different days
+
+Run the script multiple times with different date ranges — each run lets you pick a different issue:
+
+```bash
+# Week of June 16: log Mon–Wed against one task, Thu–Fri against another
+./log-time.sh 2026-06-16 2026-06-18   # select task A
+./log-time.sh 2026-06-19 2026-06-20   # select task B
+
+# Or target a single day
+./log-time.sh 2026-06-20              # select task C
+```
+
+Days that already have the full hours logged are automatically skipped, so there's no risk of double-logging.
 
 ## Configuration
 

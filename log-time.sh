@@ -100,8 +100,8 @@ if [[ $# -eq 1 ]]; then
             read -ra dates <<< "$(dates_in_range "$start_date" "$end_date")"
             ;;
         *)
-            echo "Usage: $0 [--last-month | --this-month | start_date end_date]"
-            exit 1
+            # Single date argument
+            dates=("$1")
             ;;
     esac
 elif [[ $# -eq 2 ]]; then
@@ -109,7 +109,7 @@ elif [[ $# -eq 2 ]]; then
 elif [[ $# -eq 0 ]]; then
     read -ra dates <<< "$(get_week_dates)"
 else
-    echo "Usage: $0 [--last-month | --this-month | start_date end_date]"
+    echo "Usage: $0 [--last-month | --this-month | start_date end_date | single_date]"
     exit 1
 fi
 
