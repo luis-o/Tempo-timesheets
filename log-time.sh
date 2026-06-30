@@ -153,7 +153,7 @@ if [[ "$issue_count" -eq 1 ]]; then
         echo "Aborted."
         exit 0
     fi
-    issue_key=$(echo "$issues_response" | jq -r '.issues[0].key')
+    issue_index=0
 else
     read -rp "Select issue [1-${issue_count}, q to quit]: " selection
     if [[ "$selection" == "q" ]]; then
@@ -164,8 +164,11 @@ else
         echo "Invalid selection."
         exit 1
     fi
-    issue_key=$(echo "$issues_response" | jq -r ".issues[$((selection - 1))].key")
+    issue_index=$((selection - 1))
 fi
+
+issue_key=$(echo "$issues_response" | jq -r ".issues[${issue_index}].key")
+issue_id=$(echo "$issues_response" | jq -r ".issues[${issue_index}].id")
 
 echo ""
 echo "Logging ${HOURS_PER_DAY}h/day against: $issue_key"
@@ -198,7 +201,7 @@ for date in "${dates[@]}"; do
         -H "Content-Type: application/json" \
         "https://api.tempo.io/4/worklogs" \
         -d "{
-            \"issueKey\": \"${issue_key}\",
+            \"issueId\": ${issue_id},
             \"timeSpentSeconds\": ${remaining},
             \"startDate\": \"${date}\",
             \"startTime\": \"09:00:00\",
