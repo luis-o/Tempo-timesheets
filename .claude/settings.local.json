@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls ~/Projects/ 2>/dev/null && echo \"EXISTS\" || echo \"NOT_FOUND\")",
+      "Bash(mv ~/Tempo-timesheets ~/Projects/Tempo-timesheets)"
+    ]
+  }
+}
